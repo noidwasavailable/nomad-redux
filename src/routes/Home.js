@@ -26,8 +26,8 @@ function Home(props) {
 	);
 }
 
-const getCurrentState = (state) => {
+const mapStateToProps = (state) => {
 	return { toDos: state };
 };
 
-export default connect(getCurrentState)(Home);
+export default connect(mapStateToProps)(Home);
