@@ -8,7 +8,6 @@ const output = document.getElementById("countOutput");
 const countModifier = (count = 0, action) => {
 	if (action.type === "add") count++;
 	else if (action.type === "subtract") count--;
-	console.log(count);
 	return count;
 };
 
@@ -20,6 +19,12 @@ const addHandler = () => {
 const subtractHandler = () => {
 	countStore.dispatch({ type: "subtract" });
 };
+
+const broadcastCount = () => {
+	output.innerText = countStore.getState();
+};
+
+countStore.subscribe(broadcastCount);
 
 addButton.addEventListener("click", addHandler);
 subtractButton.addEventListener("click", subtractHandler);
