@@ -1,38 +1,35 @@
 import { createStore } from "redux";
 
-const addButton = document.getElementById("add");
-const subtractButton = document.getElementById("subtract");
-const output = document.getElementById("countOutput");
+const form = document.querySelector("form");
+const input = document.querySelector("input");
+const todolist = document.querySelector("ul");
 
-const ADD = "add";
-const SUBTRACT = "subtract";
+const ADD_TODO = "add todo";
+const DEL_TODO = "delete todo";
 
-// count is going to be undefined, so we set it as 0 as default.
-const countModifier = (count = 0, action) => {
+const reducer = (state = [], action) => {
 	switch (action.type) {
-		case ADD:
-			return count + 1;
-		case SUBTRACT:
-			return count - 1;
+		case ADD_TODO:
+			return [...state, { text: action.text, id: Date.now() }];
+		case DEL_TODO:
+			return [...state];
 		default:
-			return count;
+			return state;
 	}
 };
 
-const countStore = createStore(countModifier);
+const store = createStore(reducer);
 
-const addHandler = () => {
-	countStore.dispatch({ type: ADD });
+store.subscribe(() => {
+	console.log(store.getState());
+});
+
+const onSubmit = (e) => {
+	e.preventDefault();
+
+	const toDo = input.value;
+	input.value = "";
+	store.dispatch({ type: ADD_TODO, text: toDo });
 };
-const subtractHandler = () => {
-	countStore.dispatch({ type: SUBTRACT });
-};
 
-const broadcastCount = () => {
-	output.innerText = countStore.getState();
-};
-
-countStore.subscribe(broadcastCount);
-
-addButton.addEventListener("click", addHandler);
-subtractButton.addEventListener("click", subtractHandler);
+form.addEventListener("submit", onSubmit);
