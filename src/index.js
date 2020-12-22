@@ -7,6 +7,8 @@ const todolist = document.querySelector("ul");
 const ADD_TODO = "add todo";
 const DEL_TODO = "delete todo";
 
+//Action Creators: functions that create the action objects
+//Actions are the objects which inform the reducer how to change the state
 const addToDo = (text) => {
 	return { type: ADD_TODO, text: text };
 };
@@ -15,6 +17,8 @@ const deleteToDo = (id) => {
 	return { type: DEL_TODO, id };
 };
 
+//Reducer: This is the function that is responsible for changing the state.
+//         State will be changed only here and nowhere else.
 const reducer = (state = [], action) => {
 	switch (action.type) {
 		case ADD_TODO:
@@ -26,8 +30,12 @@ const reducer = (state = [], action) => {
 	}
 };
 
+//createStore: Store stores a state that Redux manages with a reducer and actions.
 const store = createStore(reducer);
 
+//Dispatch: Dispatching a store with an action object makes Redux call the reducer
+//          in the background with the given action, performing the requested
+//          change accordingly.
 const dispatchAddToDo = (text) => {
 	store.dispatch(addToDo(text));
 };
@@ -36,6 +44,9 @@ const dispatchDeleteToDo = (e) => {
 	store.dispatch(deleteToDo(parseInt(e.target.parentNode.id)));
 };
 
+//Subscriptions: We can create functions which are subscribed to the store,
+//               which means that the function will be called whenever
+//               the state in the store is dispatched.
 const paintToDos = () => {
 	//first reset the todoList
 	todolist.innerHTML = "";
