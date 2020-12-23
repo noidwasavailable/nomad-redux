@@ -14,8 +14,6 @@ const deleteToDo = (id) => {
 };
 
 const modifyToDo = (text, id) => {
-	console.log("Transferring id...");
-	console.log(id);
 	return { type: MOD, text: text, id: parseInt(id) };
 };
 
@@ -42,10 +40,11 @@ const reducer = (
 			localStorage.setItem("todos", JSON.stringify(delState));
 			return delState;
 		case MOD:
-			let modState = state.filter((toDo) => toDo.id !== action.id);
-			console.log("receiving id...");
-			console.log(action.id);
-			modState.push({ text: action.text, id: action.id });
+			let modState = [];
+			state.forEach((toDo) => {
+				if (toDo.id !== action.id) modState.push(toDo);
+				else modState.push({ text: action.text, id: action.id });
+			});
 			localStorage.setItem("todos", JSON.stringify(modState));
 			return modState;
 		default:

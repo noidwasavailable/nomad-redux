@@ -20,8 +20,6 @@ const Detail = ({ toDo, deleteToDoFromPage, modifyToDo }) => {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		console.log("sending id...");
-		console.log(toDo.id);
 		modifyToDo(text, toDo.id);
 		setEditing(!editing);
 	}
