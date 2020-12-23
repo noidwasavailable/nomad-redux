@@ -1,17 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { actionCreators } from "../store";
 
-const Detail = ({ toDo, deleteToDoFromPage }) => {
+const Detail = ({ toDo, deleteToDoFromPage, modifyToDo }) => {
+	const [text, setText] = useState(toDo.text);
+	const [editing, setEditing] = useState(false);
+
 	const getDate = (date) => new Date(date).toDateString();
 
-	const onClick = () => deleteToDoFromPage(toDo.id);
+	const deleteToDo = () => deleteToDoFromPage(toDo.id);
+
+	const editToDo = () => {
+		setEditing(!editing);
+	};
+
+	function onChange(e) {
+		setText(e.target.value);
+	}
+
+	function onSubmit(e) {
+		e.preventDefault();
+		console.log("sending id...");
+		console.log(toDo.id);
+		modifyToDo(text, toDo.id);
+		setEditing(!editing);
+	}
+
 	return (
 		<>
 			<h1>To Do</h1>
-			<h2>{toDo.text}</h2>
+			{editing ? (
+				<form onSubmit={onSubmit}>
+					<input type="text" value={text} onChange={onChange} />
+					<button>Modify</button>
+				</form>
+			) : (
+				<h2>{text}</h2>
+			)}
 			<div>Created at: {getDate(toDo.id)}</div>
-			<button onClick={onClick}>Delete To Do</button>
+			{editing ? <></> : <button onClick={editToDo}>Edit</button>}
+			<button onClick={deleteToDo}>Delete To Do</button>
 		</>
 	);
 };
@@ -27,6 +55,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
 			history.push("/");
 			dispatch(actionCreators.deleteToDo(id));
 		},
+		modifyToDo: (text, id) => dispatch(actionCreators.modifyToDo(text, id)),
 	};
 };
 

@@ -2,6 +2,7 @@ import { createStore } from "redux";
 
 const ADD = "ADD";
 const DEL = "DEL";
+const MOD = "MOD";
 
 //actionCreators
 const addToDo = (text) => {
@@ -12,9 +13,16 @@ const deleteToDo = (id) => {
 	return { type: DEL, id: parseInt(id) };
 };
 
+const modifyToDo = (text, id) => {
+	console.log("Transferring id...");
+	console.log(id);
+	return { type: MOD, text: text, id: parseInt(id) };
+};
+
 export const actionCreators = {
 	addToDo,
 	deleteToDo,
+	modifyToDo,
 };
 
 //reducer
@@ -33,6 +41,13 @@ const reducer = (
 			const delState = state.filter((toDo) => toDo.id !== action.id);
 			localStorage.setItem("todos", JSON.stringify(delState));
 			return delState;
+		case MOD:
+			let modState = state.filter((toDo) => toDo.id !== action.id);
+			console.log("receiving id...");
+			console.log(action.id);
+			modState.push({ text: action.text, id: action.id });
+			localStorage.setItem("todos", JSON.stringify(modState));
+			return modState;
 		default:
 			return state;
 	}
