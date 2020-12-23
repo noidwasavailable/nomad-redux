@@ -18,12 +18,21 @@ export const actionCreators = {
 };
 
 //reducer
-const reducer = (state = [], action) => {
+const reducer = (
+	state = localStorage.getItem("todos")
+		? JSON.parse(localStorage.getItem("todos"))
+		: [],
+	action
+) => {
 	switch (action.type) {
 		case ADD:
-			return [{ text: action.text, id: Date.now() }, ...state];
+			const addState = [{ text: action.text, id: Date.now() }, ...state];
+			localStorage.setItem("todos", JSON.stringify(addState));
+			return addState;
 		case DEL:
-			return state.filter((toDo) => toDo.id !== action.id);
+			const delState = state.filter((toDo) => toDo.id !== action.id);
+			localStorage.setItem("todos", JSON.stringify(delState));
+			return delState;
 		default:
 			return state;
 	}
