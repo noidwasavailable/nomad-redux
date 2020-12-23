@@ -18,7 +18,7 @@ function Home({ toDos, addToDo }) {
 
 	return (
 		<>
-			<h1>To Do</h1>
+			<h1>To Dos</h1>
 			<form onSubmit={onSubmit}>
 				<input type="text" value={text} onChange={onChange} />
 				<button>Add</button>

@@ -1,18 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { actionCreators } from "../store";
 
-const ToDo = ({ toDo, onClick }) => {
+const ToDo = ({ toDo, deleteToDo }) => {
 	return (
 		<li>
-			{toDo.text} <button onClick={onClick}>Delete</button>
+			<Link to={`/${toDo.id}`}>{toDo.text}</Link>
+			<button onClick={deleteToDo}>Delete</button>
 		</li>
 	);
 };
 
 const mapDispatchToProps = (dispatch, { toDo }) => {
 	return {
-		onClick: () => dispatch(actionCreators.deleteToDo(toDo.id)),
+		deleteToDo: () => {
+			console.log("delete to do from button");
+			dispatch(actionCreators.deleteToDo(toDo.id));
+		},
 	};
 };
 
