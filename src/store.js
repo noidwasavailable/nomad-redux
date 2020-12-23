@@ -9,7 +9,7 @@ const addToDo = (text) => {
 };
 
 const deleteToDo = (id) => {
-	return { type: DEL, id };
+	return { type: DEL, id: parseInt(id) };
 };
 
 export const actionCreators = {

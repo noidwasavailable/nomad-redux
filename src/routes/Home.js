@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import ToDo from "../components/ToDo";
 import { actionCreators } from "../store";
 
 function Home({ toDos, addToDo }) {
@@ -12,7 +13,6 @@ function Home({ toDos, addToDo }) {
 	function onSubmit(e) {
 		e.preventDefault();
 		addToDo(text);
-		console.log(toDos);
 		setText("");
 	}
 
@@ -25,7 +25,7 @@ function Home({ toDos, addToDo }) {
 			</form>
 			<ul>
 				{toDos.map((toDo) => (
-					<li key={toDo.id}>{toDo.text}</li>
+					<ToDo key={toDo.id} toDo={toDo} />
 				))}
 			</ul>
 		</>
