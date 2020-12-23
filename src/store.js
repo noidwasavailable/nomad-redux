@@ -4,12 +4,17 @@ const ADD = "ADD";
 const DEL = "DEL";
 
 //actionCreators
-export const addToDo = (text) => {
+const addToDo = (text) => {
 	return { type: ADD, text: text };
 };
 
-export const deleteToDo = (id) => {
+const deleteToDo = (id) => {
 	return { type: DEL, id };
+};
+
+export const actionCreators = {
+	addToDo,
+	deleteToDo,
 };
 
 //reducer
