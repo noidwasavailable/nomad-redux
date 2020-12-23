@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../store";
+import { modify, remove } from "../store";
 import "./Detail.scss";
 
 const Detail = ({ toDo, deleteToDoFromPage, modifyToDo, history }) => {
@@ -83,9 +83,9 @@ const mapDispatchToProps = (dispatch, { history }) => {
 	return {
 		deleteToDoFromPage: (id) => {
 			history.push("/");
-			dispatch(actionCreators.deleteToDo(id));
+			dispatch(remove(id));
 		},
-		modifyToDo: (text, id) => dispatch(actionCreators.modifyToDo(text, id)),
+		modifyToDo: (text, id) => dispatch(modify(text, id)),
 	};
 };
 
