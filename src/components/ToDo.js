@@ -2,12 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { actionCreators } from "../store";
+import "./ToDo.scss";
 
 const ToDo = ({ toDo, deleteToDo }) => {
 	return (
 		<li>
 			<Link to={`/${toDo.id}`}>{toDo.text}</Link>
-			<button onClick={deleteToDo}>Delete</button>
+			<button onClick={deleteToDo} className="buttonRed">
+				Delete
+			</button>
 		</li>
 	);
 };
@@ -15,7 +18,6 @@ const ToDo = ({ toDo, deleteToDo }) => {
 const mapDispatchToProps = (dispatch, { toDo }) => {
 	return {
 		deleteToDo: () => {
-			console.log("delete to do from button");
 			dispatch(actionCreators.deleteToDo(toDo.id));
 		},
 	};

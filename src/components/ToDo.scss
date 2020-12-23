@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+
+li {
+	width: 100%;
+
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+
+	margin: 20px 0;
+
+	a {
+		grid-column: 1 / span 9;
+		color: black;
+		text-decoration: none;
+		font-size: 1.5rem;
+		font-weight: 600;
+
+		&:hover {
+			color: rgb(0, 132, 255);
+			-webkit-transition: color 0.5s ease;
+			transition: color 0.5s ease;
+		}
+	}
+
+	button {
+		grid-column: 11 / span 12;
+
+		height: fit-content;
+		width: 100%;
+		place-self: center;
+	}
+}
